@@ -4,8 +4,9 @@ import re
 import math
 from typing import Optional
 
-# Path to the extracted data JSON
-DATA_PATH = r"d:\AI人工智慧\HW5\extracted_data.json"
+# Path to the extracted data JSON resolved relative to this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_DIR, "extracted_data.json")
 
 class LocalSearchEngine:
     def __init__(self):

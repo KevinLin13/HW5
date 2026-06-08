@@ -21,7 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATA_PATH = r"d:\AI人工智慧\HW5\extracted_data.json"
+# Resolve path relative to this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_DIR, "extracted_data.json")
 
 def get_extracted_data():
     if not os.path.exists(DATA_PATH):
@@ -176,4 +178,6 @@ def chat_assistant(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)

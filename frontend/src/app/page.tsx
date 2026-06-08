@@ -45,9 +45,10 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
         const [algosRes, overviewRes] = await Promise.all([
-          fetch("http://localhost:8000/api/algorithms"),
-          fetch("http://localhost:8000/api/overview"),
+          fetch(`${apiBaseUrl}/api/algorithms`),
+          fetch(`${apiBaseUrl}/api/overview`),
         ]);
         if (algosRes.ok && overviewRes.ok) {
           const algosData = await algosRes.json();

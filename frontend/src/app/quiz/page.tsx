@@ -51,9 +51,10 @@ export default function QuizPage() {
     async function loadQuiz() {
       try {
         setLoading(true);
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
         const url = selectedAlgoFilter === "all" 
-          ? "http://localhost:8000/api/quiz"
-          : `http://localhost:8000/api/quiz?algo_id=${selectedAlgoFilter}`;
+          ? `${apiBaseUrl}/api/quiz`
+          : `${apiBaseUrl}/api/quiz?algo_id=${selectedAlgoFilter}`;
         
         const res = await fetch(url);
         if (res.ok) {
@@ -128,7 +129,8 @@ export default function QuizPage() {
         }
       });
 
-      const res = await fetch("http://localhost:8000/api/quiz/submit", {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const res = await fetch(`${apiBaseUrl}/api/quiz/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

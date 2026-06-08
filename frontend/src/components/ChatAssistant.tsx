@@ -104,7 +104,8 @@ export default function ChatAssistant() {
       // Limit memory context to prevent huge token size (last 12 turns)
       const messagesPayload = updatedMessages.slice(-12);
 
-      const response = await fetch("http://localhost:8000/api/chat", {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const response = await fetch(`${apiBaseUrl}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
