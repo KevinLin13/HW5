@@ -216,7 +216,7 @@ def ask_ai(messages: list, api_key: Optional[str] = None, api_type: str = "gemin
                 import google.generativeai as genai
                 genai.configure(api_key=api_key)
                 
-                model_name = model if model else "gemini-3.1-flash-lite"
+                model_name = model if model else "gemini-2.5-flash-lite"
                 merged = merge_consecutive_messages(messages, ai_role="model")
                 contents = [{"role": m["role"], "parts": [m["content"]]} for m in merged]
                 
