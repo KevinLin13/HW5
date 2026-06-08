@@ -1,6 +1,8 @@
 # 🤖 機器學習十大演算法互動式學習平台
 ### Machine Learning Algorithms Interactive Learning Platform
 
+🔗 **前端網頁部署連結：[https://KevinLin13.github.io/HW5/](https://KevinLin13.github.io/HW5/)**
+
 本專案是一個全端互動式學習平台，旨在將《機器學習十大演算法研讀報告》與《資訊圖表》數位化與動態化。使用者可以透過直觀的 SVG 動態圖表、整合式的演算法選用矩陣、多功能測驗練習，以及具備對話記憶功能的 AI 智慧學習助理，全方位掌握機器學習核心知識。
 
 ---
