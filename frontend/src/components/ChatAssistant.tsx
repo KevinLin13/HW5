@@ -31,7 +31,7 @@ export default function ChatAssistant() {
   // API Keys state
   const [apiKey, setApiKey] = useState("");
   const [apiType, setApiType] = useState("gemini"); // gemini or openai
-  const [model, setModel] = useState("gemini-2.5-flash");
+  const [model, setModel] = useState("gemini-3.1-flash-lite");
   const [showSettings, setShowSettings] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export default function ChatAssistant() {
     if (savedModel) {
       setModel(savedModel);
     } else {
-      const defaultModel = savedType === "openai" ? "gpt-4o" : (savedType === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-2.0-flash");
+      const defaultModel = savedType === "openai" ? "gpt-4o" : (savedType === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-3.1-flash-lite");
       setModel(defaultModel);
     }
   }, []);
@@ -59,7 +59,7 @@ export default function ChatAssistant() {
     localStorage.setItem("ml_assistant_api_type", type);
     const savedKey = localStorage.getItem(`ml_assistant_key_${type}`) || "";
     setApiKey(savedKey);
-    const defaultModel = type === "openai" ? "gpt-4o" : (type === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-2.0-flash");
+    const defaultModel = type === "openai" ? "gpt-4o" : (type === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-3.1-flash-lite");
     const savedModel = localStorage.getItem(`ml_assistant_model_${type}`) || defaultModel;
     setModel(savedModel);
   };
@@ -88,7 +88,7 @@ export default function ChatAssistant() {
     setIsLoading(true);
 
     try {
-      const defaultModel = apiType === "openai" ? "gpt-4o" : (apiType === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-2.0-flash");
+      const defaultModel = apiType === "openai" ? "gpt-4o" : (apiType === "anthropic" ? "claude-3-7-sonnet-latest" : "gemini-3.1-flash-lite");
       const activeKey = localStorage.getItem(`ml_assistant_key_${apiType}`) || "";
       const activeModel = localStorage.getItem(`ml_assistant_model_${apiType}`) || defaultModel;
       
@@ -304,11 +304,11 @@ export default function ChatAssistant() {
               >
                 {apiType === "gemini" ? (
                   <>
-                    <option value="gemini-2.0-flash">Gemini 2.0 Flash (預設推薦)</option>
-                    <option value="gemini-2.0-flash-lite">Gemini 2.0 Flash-Lite</option>
+                    <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite (預設推薦)</option>
+                    <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+                    <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
                     <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
                     <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                    <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro Early Access</option>
                   </>
                 ) : apiType === "openai" ? (
                   <>
