@@ -196,6 +196,27 @@ def merge_consecutive_messages(messages: list, ai_role: str = "assistant") -> li
     return formatted
 
 def ask_ai(messages: list, api_key: Optional[str] = None, api_type: str = "gemini", model: Optional[str] = None) -> str:
+    # Resolve API Key from env file or environment variables if not passed by the client
+    if not api_key or not api_key.strip():
+        # Load local .env files if they exist (both backend/ and root directories)
+        import os
+        for dotenv_path in [os.path.join(os.path.dirname(__file__), ".env"), os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")]:
+            if os.path.exists(dotenv_path):
+                with open(dotenv_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith("#") and "=" in line:
+                            k, v = line.split("=", 1)
+                            os.environ[k.strip()] = v.strip().strip('"').strip("'")
+        
+        # Read from environment variables based on API type
+        if api_type == "gemini":
+            api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        elif api_type == "openai":
+            api_key = os.environ.get("OPENAI_API_KEY")
+        elif api_type == "anthropic":
+            api_key = os.environ.get("ANTHROPIC_API_KEY")
+
     # Extract the last user message as search query for context retrieval
     user_messages = [m for m in messages if m.get("role") == "user"]
     query = user_messages[-1].get("content", "") if user_messages else ""
